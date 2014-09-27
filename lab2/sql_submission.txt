@@ -1,39 +1,203 @@
 SQL Assignment Submission
 
 === 1
-<INSERT YOUR QUERY HERE>
+
+select name from players p
+where(
+	p.player_id in 
+	(select player_id from results r
+		where (
+			r.event_id = (select event_id from events e
+			where( 
+				e.name = '110m Hurdles Men' 
+				and e.olympic_id = 
+				(select olympic_id from olympics o 
+					where o.year = 2000
+				)
+				)
+			)
+		)
+	)
+);
+
 **************** RESULT ***************************************************************
-<INSERT YOUR RESULT HERE>
+
+name                   
+------------------------------------------
+ Anier Garcia                            
+ Mark Crear                              
+ Terrence Trammell                       
+(3 rows)
+
 =============================================================================================
 
 === 2
-<INSERT YOUR QUERY HERE>
+
+select count(player_id) 
+from players p
+where substr(p.name, 1, 1) 
+in ('A', 'E', 'I', 'O', 'U');
+
 **************** RESULT ***************************************************************
-<INSERT YOUR RESULT HERE>
+
+ count 
+-------
+    84
+(1 row)
+
 =============================================================================================
 
 === 3
-<INSERT YOUR QUERY HERE>
+
+select count(*)
+from events e
+where e.result_noted_in = 'points' 
+and e.olympic_id = (
+	select olympic_id from olympics o
+	where o.year = 2000
+);
+
 **************** RESULT ***************************************************************
-<INSERT YOUR RESULT HERE>
+
+ count 
+-------
+     2
+(1 row)
+
 =============================================================================================
 
 === 4
-<INSERT YOUR QUERY HERE>
+
+with temp1 as (
+	select country_id, count(medal) as num_medals
+	from
+	(results INNER JOIN players
+	on results.player_id = 
+	players.player_id)
+	group by country_id)
+select name, CAST(num_medals as DECIMAL)/population as ratio 
+from temp1 LEFT JOIN countries
+on temp1.country_id=countries.country_id
+order by ratio asc
+limit 5
+;
+
 **************** RESULT ***************************************************************
-<INSERT YOUR RESULT HERE>
+
+                   name                   |             ratio              
+------------------------------------------+--------------------------------
+ China                                    | 0.0000000060453826878375968395
+ Turkey                                   |     0.000000014167063911138735
+ Argentina                                |     0.000000025808349775402836
+ Mexico                                   |     0.000000028029681564130977
+ Canada                                   |     0.000000029948960083756460
+(5 rows)
+
 =============================================================================================
 
 === 5
-<INSERT YOUR QUERY HERE>
+
+select countries.name, count(player_id) as num_players
+from
+(players LEFT JOIN countries
+on players.country_id = countries.country_id
+)
+group by countries.name
+;
+
 **************** RESULT ***************************************************************
-<INSERT YOUR RESULT HERE>
+
+                   name                   | num_players 
+------------------------------------------+-------------
+ Costa Rica                               |           1
+ Latvia                                   |           2
+ Estonia                                  |           2
+ Eritrea                                  |           1
+ Turkey                                   |           1
+ Germany                                  |          22
+ France                                   |          10
+ Algeria                                  |           4
+ Slovenia                                 |           1
+ Japan                                    |          16
+ Jamaica                                  |          18
+ Spain                                    |           4
+ Ukraine                                  |           9
+ Belarus                                  |           7
+ Cameroon                                 |           1
+ Zimbabwe                                 |           1
+ Saudi Arabia                             |           1
+ Ireland                                  |           1
+ Russia                                   |          38
+ Denmark                                  |           2
+ Lithuania                                |           2
+ Iceland                                  |           1
+ Netherlands                              |          13
+ Portugal                                 |           3
+ Barbados                                 |           1
+ Nigeria                                  |          12
+ Romania                                  |          10
+ The Bahamas                              |           5
+ Dominican Republic                       |           1
+ Trinidad and Tobago                      |           2
+ Canada                                   |           1
+ China                                    |           8
+ Austria                                  |           2
+ Australia                                |          34
+ Kenya                                    |          13
+ South Africa                             |          10
+ United States                            |          88
+ Poland                                   |           5
+ Argentina                                |           1
+ Slovakia                                 |           1
+ United Kingdom                           |          12
+ Kazakhstan                               |           2
+ Croatia                                  |           1
+ Czech Republic                           |           3
+ Cuba                                     |          12
+ Sweden                                   |           9
+ Italy                                    |          12
+ Ethiopia                                 |          12
+ Greece                                   |           7
+ Brazil                                   |           9
+ Morocco                                  |           5
+ Hungary                                  |           4
+ Mozambique                               |           1
+ Mexico                                   |           3
+ Finland                                  |           1
+ Sri Lanka                                |           1
+ Norway                                   |           3
+ Bulgaria                                 |           1
+(58 rows)
+
+
 =============================================================================================
 
 === 6
-<INSERT YOUR QUERY HERE>
+
+select name, country_id, birthdate
+from players p
+where (substr(reverse(p.name), 1, 1) = 'd');
+
 **************** RESULT ***************************************************************
-<INSERT YOUR RESULT HERE>
+
+                   name                   | country_id | birthdate  
+------------------------------------------+------------+------------
+ Abderrahmane Hammad                      | ALG        | 1980-10-04
+ Amanda Beard                             | USA        | 1980-10-22
+ BJ Bedford                               | USA        | 1981-04-08
+ Beverly McDonald                         | JAM        | 1978-07-21
+ Darian Townsend                          | RSA        | 1975-08-06
+ Jon Drummond                             | USA        | 1972-01-13
+ Lars Conrad                              | GER        | 1980-09-04
+ Mark Ormrod                              | AUS        | 1973-10-26
+ Michael Blackwood                        | JAM        | 1977-08-05
+ Pieter van den Hoogenband                | NED        | 1974-07-06
+ Shawn Crawford                           | USA        | 1978-11-20
+ Trine Hattestad                          | NOR        | 1972-02-04
+ Yunaika Crawford                         | CUB        | 1981-12-09
+(13 rows)
+
+
 =============================================================================================
 
 === 7
