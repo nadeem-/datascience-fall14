@@ -1,9 +1,169 @@
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | awk '{gsub("FIFA World Cup\\|[0-9]{4}","");print}' | awk '{gsub("#..\\*","");print}' | awk '{gsub("(\\|)*[0-9]{1,}(\\|)+[0-9]{1,}(\\|)+[0-9]{1,}","");print}' | awk '{gsub("(\\|)|-","");print}' | awk '{gsub("style=whitespace:nowrapTCH<sup>","");print}' | awk '{gsub("<sup>|#.*","");print}' | awk '{gsub("\\(|\\)|,","");print}' 
+
+
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | sed 's/FIFA World Cup|'[0-9]'\{4\}//g' | awk '{gsub("#..\*","");print}' | awk '{gsub("(\\|)*[0-9]{1,}(\\|)+[0-9]{1,}(\\|)+[0-9]{1,}","");print}' | awk '{gsub("(\\|)|-","");print}' | awk '{gsub("style=whitespace:nowrapTCH<sup>","");print}' 
+
+
+
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | awk '{gsub("FIFA World Cup\\|[0-9]{4}","");print}' 
+
+
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | awk '{gsub("FIFA World Cup\\|[0-9]{4}","");print}' | awk '{gsub("#..\\*","");print}' | awk '{gsub("(\\|)*[0-9]{1,}(\\|)+[0-9]{1,}(\\|)+[0-9]{1,}","");print}' | awk '{gsub("(\\|)|-","");print}' | awk '{gsub("style=whitespace:nowrapTCH<sup>","");print}' 
+
+
 // THIS IS THE ONE TO USE WITH AWK
-
-cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | sed 's/FIFA World Cup|'[0-9]'\{4\}//g' | awk '{gsub("#..\*","");print}' | awk '{gsub("(\\|)*[0-9]{1,}(\\|)+[0-9]{1,}(\\|)+[0-9]{1,}","");print}' | awk '{gsub("(\\|)|-","");print}' | awk '{gsub("style=whitespace:nowrapTCH<sup>","");print}'
-
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | awk '{gsub("FIFA World Cup\\|[0-9]{4}","");print}' | awk '{gsub("#..\\*","");print}' | awk '{gsub("(\\|)*[0-9]{1,}(\\|)+[0-9]{1,}(\\|)+[0-9]{1,}","");print}' | awk '{gsub("(\\|)|-","");print}' | awk '{gsub("style=whitespace:nowrapTCH<sup>","");print}' | awk '{gsub("<sup>|#.*","");print}' | awk '{gsub("\\(|\\)|,","");print}' 
 
 
+
+
+echo 'GER
+4 1954  1974  1990  2014 
+4 1966  1982  1986  2002 
+4 1934  1970  2006  2010 
+1 1958' | awk '/([A-Z]{3})/ {c=$0; print c}
+/^[0-9] \(([0-9]{4}).*\)/ {print $1}
+{ i = 0
+  x = 2
+  l = $1
+  print l
+  while (i < l) {
+    print $x
+    i = i + 2
+    x = x + 1
+   }
+}'
+
+
+echo 'GER
+4 1954  1974  1990  2014 
+4 1966  1982  1986  2002 
+4 1934  1970  2006  2010 
+1 1958' | awk '/([A-Z]{3})/ {c=$0; print c}
+/^[0-9] \(([0-9]{4}).*\)/ 
+{ i = 0
+  x = 2
+  l = $1
+  print l
+  print $2
+  print $3
+  print $4
+  print $5
+}'
+
+
+echo 'GER
+4 1954  1974  1990  2014 
+4 1966  1982  1986  2002 
+4 1934  1970  2006  2010 
+1 1958' | awk '/([A-Z]{3})/ {c=$0; print c}
+/^[0-9] \(([0-9]{4}).*\)/ 
+{ i = 1
+  x = 2
+  l = $1
+  print l
+  print $2
+  print $3
+  print $4
+  print $5
+
+  for(i = 0; i <= l; i++) {
+      	printf("%s\n", $(i+1));
+  } 
+}'
+
+
+echo 'GER
+4 1954  1974  1990  2014 
+4 1966  1982  1986  2002 
+4 1934  1970  2006  2010 
+1 1958' | awk '/([A-Z]{3})/ {c=$0; print c}
+/^[0-9] \(([0-9]{4}).*\)/ 
+{ i = 1
+  x = 2
+  l = $1
+  print l
+  print $2
+  print $3
+  print $4
+  print $5
+
+  for(i = 1; i <= 4; i++) {
+      	printf("%s\n", $(i));
+  } 
+}'
+
+
+echo 'GER
+4 1954  1974  1990  2014 
+4 1966  1982  1986  2002 
+4 1934  1970  2006  2010 
+1 1958' | 
+awk '/^([A-Z]{3})/ {c=$0}
+/^([0-9]) ([0-9]{4})+/ 
+{ i = 1
+  x = 2
+  l = $1
+
+  for(i = 1; i <= l; i++) {
+      	printf("%s\n", $(i+1));
+  } 
+}'
+
+
+// THIS IS THE TIME 
+
+echo 'GER
+4 1954  1974  1990  2014 
+4 1966  1982  1986  2002 
+4 1934  1970  2006  2010 
+1 1958' | 
+awk '/^([A-Z]{3})/ {c=$0; d=$0}
+/^([0-9]) ([0-9]{4})+/  {}
+{ i = 1
+  x = 2
+  l = $1
+  ctr = 1
+
+  if(l ~ /[A-Z]{3}/) {
+  	print "HIII"
+  	d = $1
+  	ctr = 1
+  }
+  else {
+  	 for(i = 1; i <= l; i++) {
+  	 	d = d", "$(i+1);
+  	 } 
+  	 print d;
+  	 d = c;
+
+  	 ctr++
+  }
+
+} END {d=""}'
+
+
+
+
+
+
+
+
+
+
+
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | awk '{gsub("FIFA World Cup\\|[0-9]{4}","");print}' | awk '{gsub("#..\\*","");print}' | awk '{gsub("(\\|)*[0-9]{1,}(\\|)+[0-9]{1,}(\\|)+[0-9]{1,}","");print}' | awk '{gsub("(\\|)|-","");print}' | awk '{gsub("style=whitespace:nowrapTCH<sup>","");print}' | awk '{gsub("<sup>|#.*","");print}' | 
+awk '/([A-Z]{3})/ {c=$0; print c}
+/^[0-9] \(([0-9]{4}).*\)/ {c=$0; print c}
+'
+
+
+cat cmsc.txt | sed 's/[()]//g' | awk '/^(CMSC[0-9]{3})/ {c=$0;} 
+/^([0-9]{4})/ {d = c", "$0;}
+/^([A-Za-z ]+ [A-Za-z]+)/ {d = d", "$0;}
+/(Total: ([0-9]+))|(Open: ([0-9]+))|(Waitlist: ([:digit:]+))/{d = d", "$3""$5""$7;}
+/^([MWFTuTh]+) (.{15})/ {d = d", "$1", "$2}
+/^([A-Z]{3})  ([0-9]{4})/ {d = d", "$1", "$2"\n"; print d}'
 
 
 
@@ -167,10 +327,38 @@ cat cmsc.txt | sed 's/[()]//g' | awk '/^(CMSC[0-9]{3})/ {c=$0; print c}
 /^([A-Z]{3})  ([0-9]{4})/ {print $1","$2;}'
 
 
-/* FINAL ANSWER FOR #1 */
+/* FINAL ANSWER FOR Ex2. #1 */
 cat cmsc.txt | sed 's/[()]//g' | awk '/^(CMSC[0-9]{3})/ {c=$0;} 
 /^([0-9]{4})/ {d = c", "$0;}
 /^([A-Za-z ]+ [A-Za-z]+)/ {d = d", "$0;}
 /(Total: ([0-9]+))|(Open: ([0-9]+))|(Waitlist: ([:digit:]+))/{d = d", "$3""$5""$7;}
 /^([MWFTuTh]+) (.{15})/ {d = d", "$1", "$2}
 /^([A-Z]{3})  ([0-9]{4})/ {d = d", "$1", "$2"\n"; print d}'
+
+
+/* FINAL ANSWER FOR Ex2. #2 */
+cat worldcup.txt | awk '{gsub(".style=\".+\"", "");print}'| 
+sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | awk '{gsub("FIFA World Cup\\|[0-9]{4}","");print}' | awk '{gsub("#..\\*","");print}' | awk '{gsub("(\\|)*[0-9]{1,}(\\|)+[0-9]{1,}(\\|)+[0-9]{1,}","");print}' | awk '{gsub("(\\|)|-","");print}' | awk '{gsub("style=whitespace:nowrapTCH<sup>","");print}' | awk '{gsub("<sup>|#.*","");print}' | awk '{gsub("\\(|\\)|,|\\}","");print}' |
+awk '{gsub("([0-9])*\\{\\{sort dash","");print}' | 
+awk 'BEGIN {ctr=0} /^([A-Z]{3})/ {c=$0; d=$0;}
+/^([0-9]) ([0-9]{4})+/  {ctr = ctr+1;}
+{ i = 1
+  x = 2
+  l = $1
+
+  if(l ~ /[A-Z]{3}/) {
+  	ctr = 0
+  	d = $1
+  }else if(l ~ /align=center/) {
+  	ctr++
+  }
+  else {
+  	 for(i = 1; i <= l; i++) {
+  	 	d = c", "$(i+1)", " ctr;
+  	 	print d;
+  	 } 
+  	 d = c;
+  }
+
+} END {d=""}'
+
