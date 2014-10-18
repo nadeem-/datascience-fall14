@@ -1,26 +1,505 @@
 SQL Assignment Submission
 
 === 1
-<INSERT YOUR QUERY HERE>
+
+create view NumberOfMedals as
+	with temp1 as (
+		select country_id, count(medal) as num_medals
+		from
+		(results INNER JOIN players
+		on results.player_id = 
+		players.player_id)
+		group by country_id)
+	select name, num_medals 
+	from temp1 LEFT JOIN countries
+	on temp1.country_id=countries.country_id
+	order by name asc
+	;
+
 **************** RESULT ***************************************************************
-<INSERT YOUR RESULT HERE>
+
+CREATE VIEW
+
 =============================================================================================
 
 === 2
-<INSERT YOUR QUERY HERE>
+
+SELECT R.a, R.b, R.c, S.d
+FROM R INNER JOIN S
+ON (R.c = S.c or (R.c is NULL and S.c is NULL))
+;
+
+SELECT R.a, R.b, R.c, S.d
+FROM R FULL OUTER JOIN S
+ON R.C = S.C WHERE R.c IS NULL
+;
+
+
 **************** RESULT ***************************************************************
-<INSERT YOUR RESULT HERE>
+
+     a      | b  | c  |     d      
+------------+----+----+------------
+ a3         | 30 | 30 | d1        
+ a4         |  0 |    | d2        
+(2 rows)
+
+     a      | b | c |     d      
+------------+---+---+------------
+ a4         | 0 |   | 
+            |   |   | d2        
+(2 rows)
+
 =============================================================================================
 
 === 3
-<INSERT YOUR QUERY HERE>
+
+CREATE OR REPLACE FUNCTION update_team_table() RETURNS TRIGGER as $team_table$
+    BEGIN
+        IF (SELECT COUNT(*) FROM events e WHERE e.event_id = NEW.event_id and e.is_team_event = 1) > 0 THEN 
+
+			INSERT INTO teammedals
+        		SELECT p.country_id, e.event_id, medal, result
+				FROM results r, events e, players p
+				WHERE e.event_id = NEW.event_id 
+				AND r.player_id = NEW.player_id AND p.player_id = NEW.player_id;
+
+            return NEW;
+        END IF;
+    END;
+$team_table$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_update
+	AFTER INSERT ON results
+		FOR EACH ROW EXECUTE PROCEDURE update_team_table();
+
+insert into results (event_id, player_id, medal, result) VALUES ('E81', 'EGBELAAR01', 'GOLD', 999.14);
+
 **************** RESULT ***************************************************************
-<INSERT YOUR RESULT HERE>
+
+INSERT 0 1
+
+ country_id | event_id |  medal  | result 
+------------+----------+---------+--------
+ NGR        | E81      | GOLD    | 999.14
+(1 row)
+
 =============================================================================================
 
 === 4
-<INSERT YOUR QUERY HERE>
+
+CREATE OR REPLACE FUNCTION generate_xml() RETURNS text AS $$
+DECLARE
+    rec RECORD;
+DECLARE
+	pla RECORD;
+DECLARE
+	xml varchar := '';
+BEGIN
+    FOR rec IN select DISTINCT r.event_id, medal, is_team_event, e.name from results r, events e where r.medal = 'GOLD' 
+    and r.event_id IN (select event_id from events where olympic_id = 'ATH2004') 
+    and r.event_id = e.event_id
+    LOOP
+    	xml := xml || '<medal>' || E'\n';
+    	xml := xml || E'\t<event>' ||  rec.name || '/<event>' || E'\n';
+
+    	IF rec.is_team_event = 1
+    	THEN
+	    	xml := xml || E'\t<players>\n';
+	    	FOR pla IN select r.player_id, p.name from results r, players p 
+	    	where r.medal = rec.medal and r.event_id = rec.event_id  and p.player_id = r.player_id
+	    	LOOP
+	    	      	xml = xml || E'\t\t<player>' || pla.name || '</player>' || E'\n';
+	    	END LOOP;
+    		xml := xml || E'\t</players>' || E'\n';
+    	ELSE
+    		FOR pla IN select r.player_id, p.name from results r, players p
+	    	where r.medal = rec.medal and r.event_id = rec.event_id  and p.player_id = r.player_id
+    		LOOP
+	    		xml = xml || E'\t<player>' || pla.name || '</player>' || E'\n';
+	    	END LOOP;
+	   	END IF;
+    	xml := xml || '</medal>' || E'\n';
+    END LOOP;
+    RETURN xml;
+END;
+$$ LANGUAGE plpgsql;
+
+select * from generate_xml();
+
 **************** RESULT ***************************************************************
-<INSERT YOUR RESULT HERE>
+
+                    generate_xml                     
+-----------------------------------------------------
+ <medal>                                            +
+         <event>4x100m Medley Relay Women/<event>   +
+         <players>                                  +
+                 <player>Giaan Rooney</player>      +
+                 <player>Petria Thomas</player>     +
+                 <player>Leisel Jones</player>      +
+                 <player>Alice Mills</player>       +
+                 <player>Brooke Hanson</player>     +
+                 <player>Jodie Henry</player>       +
+         </players>                                 +
+ </medal>                                           +
+ <medal>                                            +
+         <event>1500m Men/<event>                   +
+         <player>Hicham el Guerrouj</player>        +
+ </medal>                                           +
+ <medal>                                            +
+         <event>5000m Men/<event>                   +
+         <player>Hicham el Guerrouj</player>        +
+ </medal>                                           +
+ <medal>                                            +
+         <event>200m Individual Medley Men/<event>  +
+         <player>Michael Phelps</player>            +
+ </medal>                                           +
+ <medal>                                            +
+         <event>200m Freestyle Women/<event>        +
+         <player>Camelia Potec</player>             +
+ </medal>                                           +
+ <medal>                                            +
+         <event>200m Individual Medley Women/<event>+
+         <player>Yana Klochkova</player>            +
+ </medal>                                           +
+ <medal>                                            +
+         <event>50m Freestyle Men/<event>           +
+         <player>Gary Hall Jr.</player>             +
+ </medal>                                           +
+ <medal>                                            +
+         <event>800m Freestyle Women/<event>        +
+         <player>Ai Shibata</player>                +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Discus Throw Men/<event>            +
+         <player>Virgilijus Alekna</player>         +
+ </medal>                                           +
+ <medal>                                            +
+         <event>400m Freestyle Men/<event>          +
+         <player>Ian Thorpe</player>                +
+ </medal>                                           +
+ <medal>                                            +
+         <event>110m Hurdles Men/<event>            +
+         <player>Xiang Liu</player>                 +
+ </medal>                                           +
+ <medal>                                            +
+         <event>400m Individual Medley Women/<event>+
+         <player>Yana Klochkova</player>            +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Long Jump Women/<event>             +
+         <player>Tatyana Lebedeva</player>          +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Marathon Men/<event>                +
+         <player>Stefano Baldini</player>           +
+ </medal>                                           +
+ <medal>                                            +
+         <event>200m Freestyle Men/<event>          +
+         <player>Ian Thorpe</player>                +
+ </medal>                                           +
+ <medal>                                            +
+         <event>50m Freestyle Women/<event>         +
+         <player>Inge de Bruijn</player>            +
+ </medal>                                           +
+ <medal>                                            +
+         <event>10000m Women/<event>                +
+         <player>Huina Xing</player>                +
+ </medal>                                           +
+ <medal>                                            +
+         <event>100m Women/<event>                  +
+         <player>Yuliya Nesterenko</player>         +
+ </medal>                                           +
+ <medal>                                            +
+         <event>800m Women/<event>                  +
+         <player>Kelly Holmes</player>              +
+ </medal>                                           +
+ <medal>                                            +
+         <event>200m Men/<event>                    +
+         <player>Shawn Crawford</player>            +
+ </medal>                                           +
+ <medal>                                            +
+         <event>200m Backstroke Women/<event>       +
+         <player>Kirsty Coventry</player>           +
+ </medal>                                           +
+ <medal>                                            +
+         <event>100m Butterfly Women/<event>        +
+         <player>Petria Thomas</player>             +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Discus Throw Women/<event>          +
+         <player>Natalya Sadova</player>            +
+ </medal>                                           +
+ <medal>                                            +
+         <event>High Jump Men/<event>               +
+         <player>Stefan Holm</player>               +
+ </medal>                                           +
+ <medal>                                            +
+         <event>100m Freestyle Women/<event>        +
+         <player>Jodie Henry</player>               +
+ </medal>                                           +
+ <medal>                                            +
+         <event>50km Walk Men/<event>               +
+         <player>Robert Korzeniowski</player>       +
+ </medal>                                           +
+ <medal>                                            +
+         <event>400m Hurdles Women/<event>          +
+         <player>Fani Halkia</player>               +
+ </medal>                                           +
+ <medal>                                            +
+         <event>100m Backstroke Men/<event>         +
+         <player>Aaron Peirsol</player>             +
+ </medal>                                           +
+ <medal>                                            +
+         <event>4x100m Freestyle Relay Men/<event>  +
+         <players>                                  +
+                 <player>Roland Schoeman</player>   +
+                 <player>Darian Townsend</player>   +
+                 <player>Ryk Neethling</player>     +
+                 <player>Lyndon Ferns</player>      +
+         </players>                                 +
+ </medal>                                           +
+ <medal>                                            +
+         <event>4x200m Freestyle Relay Women/<event>+
+         <players>                                  +
+                 <player>Dana Vollmer</player>      +
+                 <player>Kaitlin Sandeno</player>   +
+                 <player>Carly Piper</player>       +
+                 <player>Lindsay Benko</player>     +
+                 <player>Natalie Coughlin</player>  +
+         </players>                                 +
+ </medal>                                           +
+ <medal>                                            +
+         <event>5000m Women/<event>                 +
+         <player>Meseret Defar</player>             +
+ </medal>                                           +
+ <medal>                                            +
+         <event>3000m Steeplechase Men/<event>      +
+         <player>Ezekiel Kemboi</player>            +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Shot Put Men/<event>                +
+         <player>Yuriy Bilonog</player>             +
+ </medal>                                           +
+ <medal>                                            +
+         <event>100m Hurdles Women/<event>          +
+         <player>Joanna Hayes</player>              +
+ </medal>                                           +
+ <medal>                                            +
+         <event>20km Walk Men/<event>               +
+         <player>Ivano Brugnetti</player>           +
+ </medal>                                           +
+ <medal>                                            +
+         <event>100m Butterfly Men/<event>          +
+         <player>Michael Phelps</player>            +
+ </medal>                                           +
+ <medal>                                            +
+         <event>4x100m Medley Relay Men/<event>     +
+         <players>                                  +
+                 <player>Neil Walker</player>       +
+                 <player>Aaron Peirsol</player>     +
+                 <player>Michael Phelps</player>    +
+                 <player>Jason Lezak</player>       +
+                 <player>Brendan Hansen</player>    +
+                 <player>Lenny Krayzelburg</player> +
+                 <player>Ian Crocker</player>       +
+         </players>                                 +
+ </medal>                                           +
+ <medal>                                            +
+         <event>100m Breaststroke Women/<event>     +
+         <player>Xuejuan Luo</player>               +
+ </medal>                                           +
+ <medal>                                            +
+         <event>4x400m Relay Women/<event>          +
+         <players>                                  +
+                 <player>Deedee Trotter</player>    +
+                 <player>Sanya Richards</player>    +
+                 <player>Monique Henderson</player> +
+                 <player>Monique Hennagan</player>  +
+         </players>                                 +
+ </medal>                                           +
+ <medal>                                            +
+         <event>400m Men/<event>                    +
+         <player>Jeremy Wariner</player>            +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Triple Jump Men/<event>             +
+         <player>Christian Olsson</player>          +
+ </medal>                                           +
+ <medal>                                            +
+         <event>4x100m Relay Men/<event>            +
+         <players>                                  +
+                 <player>Mark Lewis-Francis</player>+
+                 <player>Jason Gardener</player>    +
+                 <player>Marlon Devonish</player>   +
+                 <player>Darren Campbell</player>   +
+         </players>                                 +
+ </medal>                                           +
+ <medal>                                            +
+         <event>200m Backstroke Men/<event>         +
+         <player>Aaron Peirsol</player>             +
+ </medal>                                           +
+ <medal>                                            +
+         <event>10000m Men/<event>                  +
+         <player>Kenenisa Bekele</player>           +
+ </medal>                                           +
+ <medal>                                            +
+         <event>400m Women/<event>                  +
+         <player>Tonique Williams-Darling</player>  +
+ </medal>                                           +
+ <medal>                                            +
+         <event>400m Freestyle Women/<event>        +
+         <player>Laure Manaudou</player>            +
+ </medal>                                           +
+ <medal>                                            +
+         <event>20km Walk Women/<event>             +
+         <player>Athanasia Tsoumeleka</player>      +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Hammer Throw Women/<event>          +
+         <player>Olga Kuzenkova</player>            +
+ </medal>                                           +
+ <medal>                                            +
+         <event>200m Breaststroke Men/<event>       +
+         <player>Kosuke Kitajima</player>           +
+ </medal>                                           +
+ <medal>                                            +
+         <event>400m Individual Medley Men/<event>  +
+         <player>Michael Phelps</player>            +
+ </medal>                                           +
+ <medal>                                            +
+         <event>1500m Women/<event>                 +
+         <player>Kelly Holmes</player>              +
+ </medal>                                           +
+ <medal>                                            +
+         <event>High Jump Women/<event>             +
+         <player>Yelena Slesarenko</player>         +
+ </medal>                                           +
+ <medal>                                            +
+         <event>1500m Freestyle Men/<event>         +
+         <player>Grant Hackett</player>             +
+ </medal>                                           +
+ <medal>                                            +
+         <event>100m Men/<event>                    +
+         <player>Justin Gatlin</player>             +
+ </medal>                                           +
+ <medal>                                            +
+         <event>4x100m Freestyle Relay Women/<event>+
+         <players>                                  +
+                 <player>Sarah Ryan</player>        +
+                 <player>Petria Thomas</player>     +
+                 <player>Lisbeth Lenton</player>    +
+                 <player>Alice Mills</player>       +
+                 <player>Jodie Henry</player>       +
+         </players>                                 +
+ </medal>                                           +
+ <medal>                                            +
+         <event>200m Butterfly Men/<event>          +
+         <player>Michael Phelps</player>            +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Shot Put Women/<event>              +
+         <player>Yumileidi Cumba</player>           +
+ </medal>                                           +
+ <medal>                                            +
+         <event>800m Men/<event>                    +
+         <player>Yuriy Borzakovskiy</player>        +
+ </medal>                                           +
+ <medal>                                            +
+         <event>4x100m Relay Women/<event>          +
+         <players>                                  +
+                 <player>Sherone Simpson</player>   +
+                 <player>Tanya Lawrence</player>    +
+                 <player>Aleen Bailey</player>      +
+                 <player>Veronica Campbell</player> +
+         </players>                                 +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Triple Jump Women/<event>           +
+         <player>Francoise Mbango Etone</player>    +
+ </medal>                                           +
+ <medal>                                            +
+         <event>4x400m Relay Men/<event>            +
+         <players>                                  +
+                 <player>Jeremy Wariner</player>    +
+                 <player>Darold Williamson</player> +
+                 <player>Otis Harris Jr</player>    +
+                 <player>Derrick Brew</player>      +
+         </players>                                 +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Decathlon Men/<event>               +
+         <player>Roman Sebrle</player>              +
+ </medal>                                           +
+ <medal>                                            +
+         <event>200m Women/<event>                  +
+         <player>Veronica Campbell</player>         +
+ </medal>                                           +
+ <medal>                                            +
+         <event>4x200m Freestyle Relay Men/<event>  +
+         <players>                                  +
+                 <player>Peter Vanderkaay</player>  +
+                 <player>Michael Phelps</player>    +
+                 <player>Ryan Lochte</player>       +
+                 <player>Klete Keller</player>      +
+                 <player>Scott Goldblatt</player>   +
+         </players>                                 +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Long Jump Men/<event>               +
+         <player>Dwight Phillips</player>           +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Pole Vault Women/<event>            +
+         <player>Yelena Isinbayeva</player>         +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Hammer Throw Men/<event>            +
+         <player>Koji Murofushi</player>            +
+ </medal>                                           +
+ <medal>                                            +
+         <event>100m Backstroke Women/<event>       +
+         <player>Natalie Coughlin</player>          +
+ </medal>                                           +
+ <medal>                                            +
+         <event>400m Hurdles Men/<event>            +
+         <player>Felix Sanchez</player>             +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Heptathlon Women/<event>            +
+         <player>Carolina Kluft</player>            +
+ </medal>                                           +
+ <medal>                                            +
+         <event>200m Breaststroke Women/<event>     +
+         <player>Amanda Beard</player>              +
+ </medal>                                           +
+ <medal>                                            +
+         <event>200m Butterfly Women/<event>        +
+         <player>Otylia Jedrzejczak</player>        +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Pole Vault Men/<event>              +
+         <player>Timothy Mack</player>              +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Marathon Women/<event>              +
+         <player>Mizuki Noguchi</player>            +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Javelin Throw Men/<event>           +
+         <player>Andreas Thorkildsen</player>       +
+ </medal>                                           +
+ <medal>                                            +
+         <event>100m Freestyle Men/<event>          +
+         <player>Pieter van den Hoogenband</player> +
+ </medal>                                           +
+ <medal>                                            +
+         <event>Javelin Throw Women/<event>         +
+         <player>Osleidys Menendez</player>         +
+ </medal>                                           +
+ <medal>                                            +
+         <event>100m Breaststroke Men/<event>       +
+         <player>Kosuke Kitajima</player>           +
+ </medal>        
+
 =============================================================================================
 
