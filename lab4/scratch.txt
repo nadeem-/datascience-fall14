@@ -1,0 +1,176 @@
+// THIS IS THE ONE TO USE WITH AWK
+
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | sed 's/FIFA World Cup|'[0-9]'\{4\}//g' | awk '{gsub("#..\*","");print}' | awk '{gsub("(\\|)*[0-9]{1,}(\\|)+[0-9]{1,}(\\|)+[0-9]{1,}","");print}' | awk '{gsub("(\\|)|-","");print}' | awk '{gsub("style=whitespace:nowrapTCH<sup>","");print}'
+
+
+
+
+
+
+
+
+
+
+
+
+awk '{gsub("\n\n\n","\n");print}'
+
+
+
+
+
+
+
+
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | sed 's/FIFA World Cup|'[0-9]'\{4\}//g' | awk '{gsub("#..\*","");print}'
+
+
+
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | sed 's/FIFA World Cup|'[0-9]'\{4\}//g' | awk '{gsub("#..\*","");print}' || awk '{gsub("\|[0-9]+\|\|[0-9]+\|\|[0-9]+,"");print}' | awk '{gsub("(\\|)|-","");print}' 
+| awk '{gsub("(\\|)|-","");print}' 
+
+
+
+
+
+
+
+
+
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | sed 's/FIFA World Cup|'[0-9]'\{4\}//g' | awk '{gsub("#..\*","");print}' | awk '{gsub("(\\|)*[0-9]{1,}(\\|)+[0-9]{1,}(\\|)+[0-9]{1,}","");print}'
+| awk '{gsub("#..\*","");print}' 
+
+
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | sed 's/FIFA World Cup|'[0-9]'\{4\}//g' | awk '{gsub("#..\*","");print}'
+
+
+
+cat worldcup.txt | sed "/align/d " | sed "/sort/d "
+
+cat worldcup.txt | style="background:#fff68f"
+
+// remove style tags
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub("style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/'
+
+
+// puts countries on individual lines
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/'
+
+
+echo abcd123 | sed 's/\([a-z]*\).*/\1/'
+sed 's/|{{fb|\([a-z]+\).*/\1/'
+
+
+echo '|2 ([[1974 FIFA World Cup|1974]], [[2014 FIFA World Cup|2014]][[#1|*]])' | sed 's/[[\('[0-9]'\{4\}\)/\1/'
+
+
+
+
+ echo '|2 ([[1974 FIFA World Cup|1974]], [[2014 FIFA World Cup|2014]][[#1|*]])' | 
+ sed 's/\[\[\('[0-9]'\{4\}\) FIFA World Cup|'[0-9]'\{4\}\]\]/\1/g'
+
+
+
+echo '|2 ([[1974 FIFA World Cup|1974]], [[2014 FIFA World Cup|2014]][[#1|*]])' |   sed 's/\[\[\('[0-9]'\{4\}\) FIFA World Cup|'[0-9]'\{4\}\]\]\(\[\[#.+\]\]\)*/\1/g'
+
+echo '|2 ([[1974 FIFA World Cup|1974]], [[2014 FIFA World Cup|2014]][[#1|*]])' |   
+
+sed 's/|\(['0-9']\)\[\[\('[0-9]'\{4\}\) FIFA World Cup|'[0-9]'\{4\}\]\]\(\[\[#.+\]\]\)*/\1/g'
+
+
+awk '{gsub("\\[\\[.+\\]\\]", "");print}'
+
+
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/'
+| sed 's/|\(['0-9']\)\[\[\('[0-9]'\{4\}\) FIFA World Cup|'[0-9]'\{4\}\]\]\(\[\[#.+\]\]\)*/\1/g' | awk '{gsub("\\[\\[.+\\]\\]", "");print}'
+
+
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/'
+| awk '{gsub("\\[|\\]", "");print}'
+
+
+/// ----------
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | sed 's/FIFA World Cup|./{1,/}//g'
+
+
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | sed 's/FIFA World Cup|'[0-9]'\{4\}//g'
+
+
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | sed 's/FIFA World Cup|'[0-9]'\{4\}\(#..\*\\)*//g'
+
+cat worldcup.txt | sed "/align/d " | sed "/sort/d " | awk '{gsub(".style=\".+\"", "");print}' | sed 's/|{{fb|\('[A-Z]'\{3\}\)}}/\1/' | awk '{gsub("\\[|\\]", "");print}' | sed 's/FIFA World Cup|'[0-9]'\{4\}//g'
+
+/// -------
+
+
+
+
+
+
+
+
+CMSC: Convert the cmsc.txt file into table with columns:
+
+   Course No., Section No., Instructor, Seats, Open, Waitlist, Days, Time, Bldg., Room No.
+So the first two outputs would be:
+
+   CMSC100, 0101, Charles Kassir, 45, 4, 0, M, 4:00pm - 4:50pm, CSI, 2117
+   CMSC106, 0101, Jianwu Wang, 45, 0, 5, TuTh, 9:30am - 10:45am, CSI,  2117
+
+
+cat cmsc.txt | awk -F',' '/^(CMSC[0-9]{3})/ {print c; c=$0} !/^CSIC/ {c=c", "$0 $1;}'
+
+
+cat cmsc.txt | awk -F',' '/^(CMSC[0-9]{3})(\n|.)+([0-9]{4})/ {print c; c=$0} !/^CSIC/ {c=c", "$0 $1;}'
+
+cat cmsc.txt | awk '/^(CMSC[0-9]{3})/ {c=$0; print c} !/^[A-Z]{3}  [0-9]{4}/ {$0 $1;}'
+
+/* prints all class numbers */
+cat cmsc.txt | awk '/^(CMSC[0-9]{3})/ {c=$0; print c} !/^[A-Z]{3}  [0-9]{4}\n/ {$0 $1;}'
+
+
+cat cmsc.txt | awk '/^(CMSC[0-9]{3})\n([0-9]{4}\n)/ {c=$0; print c} !/^[A-Z]{3}  [0-9]{4}\n/ {$0 $1;}'
+
+
+// prints class name, section name, prof name
+cat cmsc.txt | awk '/^(CMSC[0-9]{3})/ {c=$0; print c} 
+/^([0-9]{4})/ {c = $0; print c}
+/^([A-Za-z ]+ [A-Za-z]+)/ {c = $0; print c}
+/(Total: ([0-9]+))|(Open: ([0-9]+))|(Waitlist: ([:digit:]+))/{c = $3""$5""$7; print c}
+
+/^[A-Z]{3}  [0-9]{4}\n/ {$0 $1;}'
+
+// WORKING SO FAR
+cat cmsc.txt | sed 's/[()]//g' | awk '/^(CMSC[0-9]{3})/ {c=$0; print c} 
+/^([0-9]{4})/ {c = $0; print c}
+/^([A-Za-z ]+ [A-Za-z]+\n)/ {c = $0; print c}
+/(Total: ([0-9]+))|(Open: ([0-9]+))|(Waitlist: ([:digit:]+))/{c = $3""$5""$7; print c}
+
+/^[A-Z]{3}  [0-9]{4}\n/ {$0 $1;}'
+
+
+// WORKING SO FAR
+cat cmsc.txt | sed 's/[()]//g' | awk '/^(CMSC[0-9]{3})/ {c=$0; print c} 
+/^([0-9]{4})/ {c = $0; print c}
+/^([A-Za-z ]+ [A-Za-z]+\n)/ {c = $0; print c}
+/(Total: ([0-9]+))|(Open: ([0-9]+))|(Waitlist: ([:digit:]+))/{c = $3""$5""$7; print c}
+/^([MWFTuTh]+) (.{16})/ {print $1", "$2}
+/^[A-Z]{3}  [0-9]{4}\n/ {$0 $1;}'
+
+
+
+cat cmsc.txt | sed 's/[()]//g' | awk '/^(CMSC[0-9]{3})/ {c=$0; print c} 
+/^([0-9]{4})/ {c = $0; print c}
+/^([A-Za-z ]+ [A-Za-z]+\n)/ {c = $0; print c}
+/(Total: ([0-9]+))|(Open: ([0-9]+))|(Waitlist: ([:digit:]+))/{c = $3""$5""$7; print c}
+/^([MWFTuTh]+) (.{15})/ {print $1", "$2}
+/^([A-Z]{3})  ([0-9]{4})/ {print $1","$2;}'
+
+
+/* FINAL ANSWER FOR #1 */
+cat cmsc.txt | sed 's/[()]//g' | awk '/^(CMSC[0-9]{3})/ {c=$0;} 
+/^([0-9]{4})/ {d = c", "$0;}
+/^([A-Za-z ]+ [A-Za-z]+)/ {d = d", "$0;}
+/(Total: ([0-9]+))|(Open: ([0-9]+))|(Waitlist: ([:digit:]+))/{d = d", "$3""$5""$7;}
+/^([MWFTuTh]+) (.{15})/ {d = d", "$1", "$2}
+/^([A-Z]{3})  ([0-9]{4})/ {d = d", "$1", "$2"\n"; print d}'
