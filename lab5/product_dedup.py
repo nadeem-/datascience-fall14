@@ -12,6 +12,8 @@ from numpy import nan
 import dedupe
 from unidecode import unidecode
 
+GBP_EXCHANGE_RATE = 1.61
+
 # ## Logging
 
 # Dedupe uses Python logging to show or suppress verbose output. Added for convenience.
@@ -41,6 +43,58 @@ training_file = 'products_training.json'
 
 # Dedupe can take custom field comparison functions
 # Here you need to define any custom comparison functions you may use for different fields
+
+def extract_num(s) :
+    st = re.findall("\d+.\d+", s)[0]
+    num = float(st)
+    return num
+
+def to_usd(s) :
+    st = re.findall("\d+.\d+", s)[0]
+    gbp = float(st)
+    #s = re.sub('gbp', '', s).rstrip()
+    #gbp = float(s)
+    usd = gbp / 1.61
+    return usd
+
+def priceComparator(field_1, field_2):
+    if field_1 and field_2:
+        field_1 = field_1.rstrip()
+        field_2 = field_2.rstrip()
+
+        if field_1 == field_2:
+            return 1
+        elif "gbp" in field_1 and "gbp" in field_2:
+            e1 = extract_num(field_1) 
+            e2 = extract_num(field_2)
+            if e1 and e2:
+                if isinstance(e1, float) and isinstance(e2, float):
+                    return e1 == e2
+                else:
+                    return 0
+            else:
+                return 0
+        elif "gbp" in field_1:
+            return to_usd(field_1) == float(field_2)
+        elif "gbp" in field_2:
+            return to_usd(field_2) == float(field_1)
+        else:
+            return 0
+    else:
+        return nan
+
+"""
+def descriptionComparator(field_1, field_2) :
+    if field_1 and field_2 :
+        f1 = field_1.split()
+        f2 = field_2.split()
+        if f1[0] == f2[0] and f1[1] == f2[1]:
+            return 1
+        else:
+            return 0
+    else :
+        return nan
+"""
 
 def customComparator(field_1, field_2) :
     if field_1 and field_2 :
@@ -95,8 +149,9 @@ else:
     # Here you will need to define the fields dedupe will pay attention to. You also need to define the comparator
     # to be used and specify any customComparators. Please read the dedupe manual for details
     fields = [
-        {'field' : 'title', 'type': 'String'},
-        {'field' : 'price', 'type': 'Custom', 'has missing':True, 'comparator' : customComparator}
+        {'field' : 'title', 'type': 'String', 'comparator' : customComparator},
+        {'field' : 'price', 'type': 'Custom', 'has missing':True, 'comparator' : priceComparator},
+        {'field' : 'manufacturer', 'type': 'String', 'has missing':True, 'comparator' : customComparator}
         ]
 
     # Create a new deduper object and pass our data model to it.
@@ -150,7 +205,7 @@ print 'blocking...'
 # If we had more data, we would not pass in all the blocked data into
 # this function but a representative sample.
 
-threshold = deduper.threshold(data_d, recall_weight=2)
+threshold = deduper.threshold(data_d, recall_weight=1)
 
 # `match` will return sets of record IDs that dedupe
 # believes are all referring to the same entity.

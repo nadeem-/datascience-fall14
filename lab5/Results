@@ -1,0 +1,19 @@
+Original file/formula:
+(after classifying about 10 matches manually)
+
+tp: 2
+fp: 227
+fn: 1298
+precision: 0.00873362445415
+recall: 0.00153846153846
+
+
+New file/formula:
+(after classifying about 10 matches manually)
+
+tp: 2
+fp: 227
+fn: 1298
+precision: 0.00873362445415
+recall: 0.00153846153846
+

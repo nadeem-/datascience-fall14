@@ -1,0 +1,22 @@
+Nadeem Malik
+
+How to run:
+Run "python product_dedup.py"
+Classify around 15-20 items manually (recommended 10 postiive, 10 negative)
+Run "python product_eval.py"
+
+Report:
+We used the fields title, manufacturer, and price. Using a custom comparator for the price field to handle the case when "gbp" or extra whitespacing was present. In the case of 1 field having "gbp", we used the current GBP-USD exchange rate to covert to USD and compare the values.
+
+For our evaluation script, we used a series of hash maps to find duplicates.
+
+We set recall_weight to 1 to gain a large number of duplicates, even though most were false positives, we found better results than with a recall_weight of 0.
+
+		Results
+---------------------------
+tp: 72
+fp: 584
+fn: 1228
+precision: 0.109756097561
+recall: 0.0553846153846
+---------------------------
