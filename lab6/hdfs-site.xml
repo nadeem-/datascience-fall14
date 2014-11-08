@@ -17,9 +17,13 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
+  <property>
+<name>dfs.permissions.enabled</name>
+<value>false</value>
+</property>
 <property>
   <name>dfs.namenode.name.dir</name>
-  <value>/home/terrapin/cloudera/ops/nn</value>
+  <value>/Users/nadeem/cloudera/ops/nn</value>
   <description>Determines where on the local filesystem the DFS name node
     should store the name table(fsimage).  If this is a comma-delimited list
     of directories then the name table is replicated in all of the
@@ -27,7 +31,7 @@
 </property>
 <property>
   <name>dfs.datanode.data.dir</name>
-  <value>/home/terrapin/cloudera/ops/dn/</value>
+  <value>/Users/nadeem/cloudera/ops/dn/</value>
   <description>Determines where on the local filesystem an DFS data node
     should store its blocks.  If this is a comma-delimited
     list of directories, then data will be stored in all named
