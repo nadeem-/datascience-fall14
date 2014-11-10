@@ -16,8 +16,11 @@ jar cvf bigramstage2.jar -C bigramstage2_classes org
 hadoop fs -mkdir /bigramapp
 hadoop fs -mkdir /bigramapp/input
 
-hadoop fs -rm  -f /bigramapp/input/test.txt/
-hadoop fs -put test.txt /bigramapp/input/ 
+#hadoop fs -rm  -f /bigramapp/input/test.txt/
+#hadoop fs -put test.txt /bigramapp/input/ 
+
+hadoop fs -rm  -f /bigramapp/input/bible+shakes.nopunc/
+hadoop fs -put bible+shakes.nopunc /bigramapp/input/
 
 hadoop fs -rm -r -f /bigramapp/tmp
 hadoop fs -rm -r -f /bigramapp/output

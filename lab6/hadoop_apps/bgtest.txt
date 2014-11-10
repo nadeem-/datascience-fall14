@@ -1,3 +1,0 @@
-Bigrams are simply sequences of two consecutive words
-that are simply a string of characters
-
