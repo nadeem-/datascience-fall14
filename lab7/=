@@ -1,0 +1,7 @@
+Requirement already satisfied (use --upgrade to upgrade): six in /Library/Python/2.7/site-packages
+Downloading/unpacking 1.6
+  Real name of requirement 1.6 is 3-1
+  Could not find any downloads that satisfy the requirement 1.6
+Cleaning up...
+No distributions at all found for 1.6
+Storing debug log for failure in /Users/nadeem/.pip/pip.log

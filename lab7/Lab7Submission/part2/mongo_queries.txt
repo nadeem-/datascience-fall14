@@ -1,0 +1,109 @@
+# Nadeem Malik
+# Data Science Lab 7
+
+# mongoimport command 
+# (runs in standard shell not mongo shell)
+
+mongoimport --db zipdata --collection zipcodes --file /Users/nadeem/desktop/classes/datascience-fall14/lab7/zipData.json
+
+# Collection name is zipdata
+
+use zipdata
+
+db.zipcodes.insert({ "_id" : "99950", "city" : "KETCHIKAN", "loc" : [ -133.18479, 55.942471 ], "pop" : 422, "state" : "AK" })
+
+#+----------------------------------------+
+#				 QUERIES
+#+----------------------------------------+
+
+# QUERY FOR #1
+#+----------------------------------------+
+
+db.zipcodes.aggregate(
+   [
+   	 { $match : { pop : { $lt : 5000000 }}},
+     { $group : { _id : "$state", cities: { $push: "$city" } } }
+   ]
+)
+
+# QUERY for #2
+#+----------------------------------------+
+
+db.zipcodes.aggregate(
+[ 
+{ $group : { _id : "$state", total_pop : { $sum : "$pop" } } },
+	{ $sort : {total_pop : -1 } }
+]
+)
+
+
+# QUERY for #3
+#+----------------------------------------+
+
+db.zipcodes.aggregate( 
+{ $group: { _id: { state: "$state", city: "$city" },
+		pop: { $sum: "$pop" } } },
+{ $sort: { pop: 1 } },
+{ $group: { _id : "$_id.state",
+	min_pop_city: { $first: "$_id.city" },
+	min_pop:  { $first: "$pop" } } 
+}
+)
+
+
+# Write a MapReduce operation to compute, for each state, the average population # over the cities associated with the state. See this for the overview of
+# MapReduce, and this for some examples.
+#+----------------------------------------+
+
+var mapFunction1 = function() {
+                       emit(this.state, this.pop);
+                   };
+var reduceFunction1 = function(keyState, valuesPops) {
+                          return Array.avg(valuesPops);
+                      };
+db.zipcodes.mapReduce(
+                     mapFunction1,
+                     reduceFunction1,
+                     { out: "mapred_state_avgpop" }
+                   )
+
+OUTPUT:
+
+{
+	"result" : "mapred_state_avgpop",
+	"timeMillis" : 257,
+	"counts" : {
+		"input" : 29353,
+		"emit" : 29353,
+		"reduce" : 346,
+		"output" : 51
+	},
+	"ok" : 1
+}
+
+db.mapred_state_avgpop.find()
+
+OUTPUT:
+
+{ "_id" : "AK", "value" : 1621.0776494316099 }
+{ "_id" : "AL", "value" : 6604.685668130592 }
+{ "_id" : "AR", "value" : 17500.826721704307 }
+{ "_id" : "AZ", "value" : 6185.8376294807695 }
+{ "_id" : "CA", "value" : 5014.419895507914 }
+{ "_id" : "CO", "value" : 3794.961518103799 }
+{ "_id" : "CT", "value" : 13052.604281719165 }
+{ "_id" : "DC", "value" : 25287.5 }
+{ "_id" : "DE", "value" : 6602.386111111111 }
+{ "_id" : "FL", "value" : 10550.253797453464 }
+{ "_id" : "GA", "value" : 8337.455969617935 }
+{ "_id" : "HI", "value" : 13852.8625 }
+{ "_id" : "IA", "value" : 6096.249782249409 }
+{ "_id" : "ID", "value" : 3725.1594358396237 }
+{ "_id" : "IL", "value" : 1416.5168669156944 }
+{ "_id" : "IN", "value" : 3053.8261303566273 }
+{ "_id" : "KS", "value" : 2213.4112286216487 }
+{ "_id" : "KY", "value" : 3517.082908698895 }
+{ "_id" : "LA", "value" : 3673.1212744438317 }
+{ "_id" : "MA", "value" : 9098.16854810248 }
+Type "it" for more
+

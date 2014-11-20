@@ -1,0 +1,49 @@
+CREATE KEYSPACE ctr
+WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
+USE ctr;
+
+CREATE TABLE adInfo (
+    OwnerId int,
+    AdId int,
+    numClicks int,
+    numImpressions int,
+    PRIMARY KEY (OwnerId, AdId)
+);
+
+INSERT INTO adInfo (OwnerId, AdId, numClicks, numImpressions) VALUES (1,1,1, 10);
+INSERT INTO adInfo (OwnerId, AdId, numClicks, numImpressions) VALUES (1,2,0, 5);
+INSERT INTO adInfo (OwnerId, AdId, numClicks, numImpressions) VALUES (1,3,1, 20);
+INSERT INTO adInfo (OwnerId, AdId, numClicks, numImpressions) VALUES (1,4,0, 15);
+INSERT INTO adInfo (OwnerId, AdId, numClicks, numImpressions) VALUES (2,1,0, 10);
+INSERT INTO adInfo (OwnerId, AdId, numClicks, numImpressions) VALUES (2,2,0, 55);
+INSERT INTO adInfo (OwnerId, AdId, numClicks, numImpressions) VALUES (2,3,0, 13);
+INSERT INTO adInfo (OwnerId, AdId, numClicks, numImpressions) VALUES (2,4,0, 21);
+INSERT INTO adInfo (OwnerId, AdId, numClicks, numImpressions) VALUES (3,1,1, 32);
+INSERT INTO adInfo (OwnerId, AdId, numClicks, numImpressions) VALUES (3,2,0, 23);
+INSERT INTO adInfo (OwnerId, AdId, numClicks, numImpressions) VALUES (3,3,2, 44);
+INSERT INTO adInfo (OwnerId, AdId, numClicks, numImpressions) VALUES (3,4,1, 36);
+
+
+#### QUERIES #### 
+
+select * from adinfo where ownerid=1 and adid=3;
+
+RESULTS:
+
+ ownerid | adid | numclicks | numimpressions
+---------+------+-----------+----------------
+       1 |    3 |         1 |             20
+
+
+
+select * from adinfo where ownerid=2 ;
+
+RESULTS:
+
+ ownerid | adid | numclicks | numimpressions
+---------+------+-----------+----------------
+       2 |    1 |         0 |             10
+       2 |    2 |         0 |             55
+       2 |    3 |         0 |             13
+       2 |    4 |         0 |             21
+

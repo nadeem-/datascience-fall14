@@ -196,9 +196,10 @@ ctr for OwnerId=2: 0.000000
 
 # mongoimport command 
 # (runs in standard shell not mongo shell)
-# 		mongoimport --db zipdata --collection zipcodes --file /Users/nadeem/
-# 		desktop/classes/datascience-fall14/lab7/zipData.json
 
+mongoimport --db zipdata --collection zipcodes --file /Users/nadeem/desktop/classes/datascience-fall14/lab7/zipData.json
+
+# Collection name is zipdata
 
 use zipdata
 

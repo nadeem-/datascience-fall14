@@ -1,0 +1,22 @@
+
+ctr for OwnerId=1, AdId=1: 0.100000
+ctr for OwnerId=1, AdId=2: 0.000000
+ctr for OwnerId=1, AdId=3: 0.050000
+ctr for OwnerId=1, AdId=4: 0.000000
+ctr for OwnerId=2, AdId=1: 0.000000
+ctr for OwnerId=2, AdId=2: 0.000000
+ctr for OwnerId=2, AdId=3: 0.000000
+ctr for OwnerId=2, AdId=4: 0.000000
+ctr for OwnerId=3, AdId=1: 0.031250
+ctr for OwnerId=3, AdId=2: 0.000000
+ctr for OwnerId=3, AdId=3: 0.045455
+ctr for OwnerId=3, AdId=4: 0.027778
+
+ctr for OwnerId=1: 0.150000
+ctr for OwnerId=2: 0.000000
+ctr for OwnerId=3: 0.104482
+
+ctr for OwnerId=1, AdId=3: 0.050000
+
+ctr for OwnerId=2: 0.000000
+
