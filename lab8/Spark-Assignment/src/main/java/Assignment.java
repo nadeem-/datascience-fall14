@@ -27,7 +27,7 @@ import org.apache.spark.streaming.api.java.JavaDStream;
 import org.apache.spark.streaming.api.java.JavaPairDStream;
 import org.apache.spark.streaming.api.java.JavaReceiverInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
-
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public final class Assignment {
@@ -48,18 +48,35 @@ public final class Assignment {
 
         JavaDStream<String> words = lines.flatMap(new FlatMapFunction<String, String>() {
                 @Override
+
                 public Iterable<String> call(String x) {
-                return Lists.newArrayList(SPACE.split(x));
+                    String[] l = SPACE.split(x);
+                    ArrayList<String> obamaList = new ArrayList<String>();
+                    for(String w1 : l) {
+                        if(w1.toLowerCase().equals("#obama")) {
+                            obamaList.add("#Obama");
+                        }
+                    }
+
+                    return obamaList;
                 }
                 });
+
+        // Reduce function adding two integers, defined separately for clarity
+        Function2<Integer, Integer, Integer> reduceFunc = new Function2<Integer, Integer, Integer>() {
+          @Override public Integer call(Integer i1, Integer i2) throws Exception {
+            return i1 + i2;
+          }
+        };
+
 
         JavaPairDStream<String, Integer> wordCounts = words.mapToPair(
                 new PairFunction<String, String, Integer>() {
                 @Override
                 public Tuple2<String, Integer> call(String s) {
-                return new Tuple2<String, Integer>(s, 1);
+                    return new Tuple2<String, Integer>(s, 1);
                 }
-                });
+                }).reduceByKeyAndWindow(reduceFunc, new Duration(30000), new Duration(10000));
 
         wordCounts.print();
 
