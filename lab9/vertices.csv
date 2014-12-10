@@ -1,0 +1,10 @@
+(1L, "Alabama"), (2L, "Arizona"), (3L, "Arkansas"), (4L, "California"), (5L, "Colorado"),
+(6L, "Connecticut"), (7L, "District of Columbia"), (8L, "Delaware"), (9L, "Florida"), (10L, "Georgia"),
+(11L, "Idaho"), (12L, "Illinois"), (13L, "Indiana"), (14L, "Iowa"), (15L, "Kansas"),
+(16L, "Kentucky"), (17L, "Louisiana"), (18L, "Maine"), (19L, "Maryland"), (20L, "Massachusetts"),
+(21L, "Michigan"), (22L, "Minnesota"), (23L, "Mississippi"), (24L, "Missouri"), (25L, "Montana"),
+(26L, "Nebraska"), (27L, "Nevada"), (28L, "New Hampshire"), (29L, "New Jersey"), (30L, "New Mexico"),
+(31L, "New York"), (32L, "North Carolina"), (33L, "North Dakota"), (34L, "Ohio"), (35L, "Oklahoma"),
+(36L, "Oregon"), (37L, "Pennsylvania"), (38L, "Rhode Island"), (39L, "South Carolina"), (40L, "South Dakota"),
+(41L, "Tennessee"), (42L, "Texas"), (43L, "Utah"), (44L, "Vermont"), (45L, "Virginia"),
+(46L, "Washington"), (47L, "West Virginia"), (48L, "Wisconsin"), (49L, "Wyoming")

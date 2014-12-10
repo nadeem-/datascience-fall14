@@ -1,39 +1,366 @@
-===================== Neo4j Question 1
+Nadeem Malik
+Lab 9
 
+===================== Neo4j Question 1
+MATCH (people:Person) WHERE people.born = 1964 RETURN people.name
+
+Output:
+Keanu Reeves
 
 
 ===================== Neo4j Question 2
+MATCH (wil:Person {name:"Wil Wheaton"})-[:ACTED_IN]->(m)<-[:ACTED_IN]-(coActors) RETURN coActors.name
 
-
+Output:
+River Phoenix
+Jerry O'Connell
+Corey Feldman
+John Cusack
+Kiefer Sutherland
+Marshall Bell
 
 ===================== Neo4j Question 3
+CREATE (L1:Vertex {state:'Alabama'})
+CREATE (L2:Vertex {state:'Arizona'})
+CREATE (L3:Vertex {state:'Arkansas'})
+CREATE (L4:Vertex {state:'California'})
+CREATE (L5:Vertex {state:'Colorado'})
+CREATE (L6:Vertex {state:'Connecticut'})
+CREATE (L7:Vertex {state:'District of Columbia'})
+CREATE (L8:Vertex {state:'Delaware'})
+CREATE (L9:Vertex {state:'Florida'})
+CREATE (L10:Vertex {state:'Georgia'})
+CREATE (L11:Vertex {state:'Idaho'})
+CREATE (L12:Vertex {state:'Illinois'})
+CREATE (L13:Vertex {state:'Indiana'})
+CREATE (L14:Vertex {state:'Iowa'})
+CREATE (L15:Vertex {state:'Kansas'})
+CREATE (L16:Vertex {state:'Kentucky'})
+CREATE (L17:Vertex {state:'Louisiana'})
+CREATE (L18:Vertex {state:'Maine'})
+CREATE (L19:Vertex {state:'Maryland'})
+CREATE (L20:Vertex {state:'Massachusetts'})
+CREATE (L21:Vertex {state:'Michigan'})
+CREATE (L22:Vertex {state:'Minnesota'})
+CREATE (L23:Vertex {state:'Mississippi'})
+CREATE (L24:Vertex {state:'Missouri'})
+CREATE (L25:Vertex {state:'Montana'})
+CREATE (L26:Vertex {state:'Nebraska'})
+CREATE (L27:Vertex {state:'Nevada'})
+CREATE (L28:Vertex {state:'New Hampshire'})
+CREATE (L29:Vertex {state:'New Jersey'})
+CREATE (L30:Vertex {state:'New Mexico'})
+CREATE (L31:Vertex {state:'New York'})
+CREATE (L32:Vertex {state:'North Carolina'})
+CREATE (L33:Vertex {state:'North Dakota'})
+CREATE (L34:Vertex {state:'Ohio'})
+CREATE (L35:Vertex {state:'Oklahoma'})
+CREATE (L36:Vertex {state:'Oregon'})
+CREATE (L37:Vertex {state:'Pennsylvania'})
+CREATE (L38:Vertex {state:'Rhode Island'})
+CREATE (L39:Vertex {state:'South Carolina'})
+CREATE (L40:Vertex {state:'South Dakota'})
+CREATE (L41:Vertex {state:'Tennessee'})
+CREATE (L42:Vertex {state:'Texas'})
+CREATE (L43:Vertex {state:'Utah'})
+CREATE (L44:Vertex {state:'Vermont'})
+CREATE (L45:Vertex {state:'Virginia'})
+CREATE (L46:Vertex {state:'Washington'})
+CREATE (L47:Vertex {state:'West Virginia'})
+CREATE (L48:Vertex {state:'Wisconsin'})
+CREATE (L49:Vertex {state:'Wyoming'})
+CREATE (L1)-[:BORDERS {weight:196.1}]->(L9)
+CREATE (L1)-[:BORDERS {weight:291.3}]->(L10)
+CREATE (L1)-[:BORDERS {weight:323.9}]->(L23)
+CREATE (L1)-[:BORDERS {weight:146.7}]->(L41)
+CREATE (L3)-[:BORDERS {weight:166.5}]->(L17)
+CREATE (L3)-[:BORDERS {weight:325.3}]->(L24)
+CREATE (L3)-[:BORDERS {weight:282.8}]->(L23)
+CREATE (L3)-[:BORDERS {weight:198.2}]->(L35)
+CREATE (L3)-[:BORDERS {weight:125.1}]->(L41)
+CREATE (L3)-[:BORDERS {weight:65.0}]->(L42)
+CREATE (L2)-[:BORDERS {weight:198.4}]->(L4)
+CREATE (L2)-[:BORDERS {weight:0.0}]->(L5)
+CREATE (L2)-[:BORDERS {weight:391.0}]->(L30)
+CREATE (L2)-[:BORDERS {weight:181.4}]->(L27)
+CREATE (L2)-[:BORDERS {weight:275.8}]->(L43)
+CREATE (L4)-[:BORDERS {weight:608.2}]->(L27)
+CREATE (L4)-[:BORDERS {weight:216.3}]->(L36)
+CREATE (L5)-[:BORDERS {weight:207.7}]->(L15)
+CREATE (L5)-[:BORDERS {weight:173.2}]->(L26)
+CREATE (L5)-[:BORDERS {weight:333.0}]->(L30)
+CREATE (L5)-[:BORDERS {weight:52.9}]->(L35)
+CREATE (L5)-[:BORDERS {weight:276.1}]->(L43)
+CREATE (L5)-[:BORDERS {weight:260.2}]->(L49)
+CREATE (L6)-[:BORDERS {weight:86.5}]->(L20)
+CREATE (L6)-[:BORDERS {weight:82.3}]->(L31)
+CREATE (L6)-[:BORDERS {weight:40.3}]->(L38)
+CREATE (L7)-[:BORDERS {weight:24.6}]->(L19)
+CREATE (L7)-[:BORDERS {weight:1.9}]->(L45)
+CREATE (L8)-[:BORDERS {weight:122.0}]->(L19)
+CREATE (L8)-[:BORDERS {weight:1.4}]->(L29)
+CREATE (L8)-[:BORDERS {weight:22.6}]->(L37)
+CREATE (L9)-[:BORDERS {weight:261.4}]->(L10)
+CREATE (L10)-[:BORDERS {weight:68.6}]->(L32)
+CREATE (L10)-[:BORDERS {weight:249.6}]->(L39)
+CREATE (L10)-[:BORDERS {weight:72.6}]->(L41)
+CREATE (L14)-[:BORDERS {weight:262.1}]->(L22)
+CREATE (L14)-[:BORDERS {weight:235.0}]->(L24)
+CREATE (L14)-[:BORDERS {weight:148.9}]->(L26)
+CREATE (L14)-[:BORDERS {weight:85.6}]->(L40)
+CREATE (L14)-[:BORDERS {weight:86.7}]->(L48)
+CREATE (L11)-[:BORDERS {weight:569.8}]->(L25)
+CREATE (L11)-[:BORDERS {weight:153.0}]->(L27)
+CREATE (L11)-[:BORDERS {weight:305.8}]->(L36)
+CREATE (L11)-[:BORDERS {weight:153.6}]->(L43)
+CREATE (L11)-[:BORDERS {weight:210.3}]->(L46)
+CREATE (L11)-[:BORDERS {weight:170.7}]->(L49)
+CREATE (L12)-[:BORDERS {weight:200.5}]->(L14)
+CREATE (L12)-[:BORDERS {weight:295.5}]->(L13)
+CREATE (L12)-[:BORDERS {weight:122.4}]->(L16)
+CREATE (L12)-[:BORDERS {weight:331.6}]->(L24)
+CREATE (L12)-[:BORDERS {weight:144.4}]->(L48)
+CREATE (L13)-[:BORDERS {weight:296.0}]->(L16)
+CREATE (L13)-[:BORDERS {weight:108.4}]->(L21)
+CREATE (L13)-[:BORDERS {weight:178.8}]->(L34)
+CREATE (L15)-[:BORDERS {weight:307.5}]->(L24)
+CREATE (L15)-[:BORDERS {weight:356.5}]->(L26)
+CREATE (L15)-[:BORDERS {weight:409.1}]->(L35)
+CREATE (L16)-[:BORDERS {weight:59.8}]->(L24)
+CREATE (L16)-[:BORDERS {weight:155.5}]->(L34)
+CREATE (L16)-[:BORDERS {weight:338.5}]->(L41)
+CREATE (L16)-[:BORDERS {weight:119.0}]->(L45)
+CREATE (L16)-[:BORDERS {weight:79.1}]->(L47)
+CREATE (L17)-[:BORDERS {weight:456.6}]->(L23)
+CREATE (L17)-[:BORDERS {weight:222.7}]->(L42)
+CREATE (L20)-[:BORDERS {weight:86.7}]->(L28)
+CREATE (L20)-[:BORDERS {weight:49.4}]->(L31)
+CREATE (L20)-[:BORDERS {weight:62.6}]->(L38)
+CREATE (L20)-[:BORDERS {weight:40.9}]->(L44)
+CREATE (L19)-[:BORDERS {weight:195.7}]->(L37)
+CREATE (L19)-[:BORDERS {weight:253.7}]->(L45)
+CREATE (L19)-[:BORDERS {weight:174.0}]->(L47)
+CREATE (L18)-[:BORDERS {weight:159.3}]->(L28)
+CREATE (L21)-[:BORDERS {weight:69.7}]->(L34)
+CREATE (L21)-[:BORDERS {weight:205.1}]->(L48)
+CREATE (L22)-[:BORDERS {weight:217.1}]->(L33)
+CREATE (L22)-[:BORDERS {weight:180.8}]->(L40)
+CREATE (L22)-[:BORDERS {weight:291.1}]->(L48)
+CREATE (L24)-[:BORDERS {weight:53.6}]->(L26)
+CREATE (L24)-[:BORDERS {weight:34.4}]->(L35)
+CREATE (L24)-[:BORDERS {weight:60.9}]->(L41)
+CREATE (L23)-[:BORDERS {weight:119.2}]->(L41)
+CREATE (L25)-[:BORDERS {weight:210.8}]->(L33)
+CREATE (L25)-[:BORDERS {weight:65.3}]->(L40)
+CREATE (L25)-[:BORDERS {weight:377.7}]->(L49)
+CREATE (L32)-[:BORDERS {weight:312.2}]->(L39)
+CREATE (L32)-[:BORDERS {weight:218.9}]->(L41)
+CREATE (L32)-[:BORDERS {weight:327.7}]->(L45)
+CREATE (L33)-[:BORDERS {weight:359.0}]->(L40)
+CREATE (L26)-[:BORDERS {weight:399.4}]->(L40)
+CREATE (L26)-[:BORDERS {weight:138.0}]->(L49)
+CREATE (L28)-[:BORDERS {weight:180.0}]->(L44)
+CREATE (L29)-[:BORDERS {weight:103.4}]->(L31)
+CREATE (L29)-[:BORDERS {weight:150.9}]->(L37)
+CREATE (L30)-[:BORDERS {weight:34.5}]->(L35)
+CREATE (L30)-[:BORDERS {weight:536.2}]->(L42)
+CREATE (L30)-[:BORDERS {weight:0.0}]->(L43)
+CREATE (L27)-[:BORDERS {weight:152.5}]->(L36)
+CREATE (L27)-[:BORDERS {weight:344.6}]->(L43)
+CREATE (L31)-[:BORDERS {weight:306.1}]->(L37)
+CREATE (L31)-[:BORDERS {weight:80.3}]->(L44)
+CREATE (L34)-[:BORDERS {weight:92.4}]->(L37)
+CREATE (L34)-[:BORDERS {weight:243.5}]->(L47)
+CREATE (L35)-[:BORDERS {weight:715.4}]->(L42)
+CREATE (L36)-[:BORDERS {weight:385.8}]->(L46)
+CREATE (L37)-[:BORDERS {weight:118.6}]->(L47)
+CREATE (L40)-[:BORDERS {weight:137.7}]->(L49)
+CREATE (L41)-[:BORDERS {weight:110.7}]->(L45)
+CREATE (L43)-[:BORDERS {weight:173.1}]->(L49)
+CREATE (L45)-[:BORDERS {weight:381.2}]->(L47)
 
+RETURN L1
+;
+
+
+Output:
+{"graph":{"nodeMap":{"269":{"state":"Alabama"}},"relationshipMap":{}},"table":{"_response":{"columns":["L1"],"data":[{"graph":{"nodes":[{"id":"269","labels":["Vertex"],"properties":{"state":"Alabama"}}],"relationships":[]},"row":[{"state":"Alabama"}]}],"stats":{"constraints_added":0,"constraints_removed":0,"contains_updates":true,"indexes_added":0,"indexes_removed":0,"labels_added":49,"labels_removed":0,"nodes_created":49,"nodes_deleted":0,"properties_set":158,"relationship_deleted":0,"relationships_created":109}},"nodes":[{"id":"269","labels":["Vertex"],"properties":{"state":"Alabama"}}],"other":[],"relationships":[],"size":1,"stats":{"constraints_added":0,"constraints_removed":0,"contains_updates":true,"indexes_added":0,"indexes_removed":0,"labels_added":49,"labels_removed":0,"nodes_created":49,"nodes_deleted":0,"properties_set":158,"relationship_deleted":0,"relationships_created":109}}}
 
 
 ===================== Neo4j Question 4
+MATCH (arizona {state: "Arizona"})
+MATCH (colorado {state: "Colorado"})
+MATCH (state:Vertex) WHERE state<-[:BORDERS]-(arizona) AND state<-[:BORDERS]-(colorado) RETURN state.state
 
+Output:
+New Mexico
+Utah
 
 
 ===================== Neo4j Question 5
+MATCH (california:Vertex {state:"California"})-[*1..3]-(state)
+RETURN DISTINCT state.state
 
+Output:
+Nevada
+Oregon
+Washington
+California
+Idaho
+Utah
+Wyoming
+Arizona
+Colorado
+New Mexico
+Montana
+Kansas
+Nebraska
+Oklahoma
+Texas
 
 
 ===================== GraphX Question 1
+val users = graph.vertices
+val triangles = graph.triangleCount().vertices
+users.join(triangles).collect().foreach { case (id, ((name, age), triCount)) => println(name + " participates in " + triCount + " triangles.")}
 
+Output:
+Alice participates in 1 triangles.
+Bob participates in 2 triangles.
+Charlie participates in 2 triangles.
+David participates in 1 triangles.
+Ed participates in 2 triangles.
+Fran participates in 1 triangles.
 
 
 
 ===================== GraphX Question 2
+val ccs = olderUsers.connectedComponents().vertices
+val olderUsers = graph.subgraph(vpred = (id, attr) => attr._2 > 30)
+olderUsers.vertices.join(ccs).collect().foreach { case (id, ((name, age),cc)) => println(name + " is in connected component " + cc)}
 
-
+Output:
+Charlie is in connected component 3
+David is in connected component 4
+Ed is in connected component 3
+Fran is in connected component 3
 
 
 ===================== GraphX Question 3
+val maxAgeFollowers: VertexRDD[(Double, Double)] = graph.mapReduceTriplets[(Double, Double)](
+  triplet => { // Map Function
+  	// srcAttr and dstAttr are both ages
+    Iterator((triplet.dstId, (triplet.srcAttr, triplet.srcAttr)))
+  },
+
+  (a,b) => {
+  	   val l1 = List(a._1,b._1,a._2,b._2)
+  	   val m1 = l1.max
+  	   // find the max after removing the first max from the list of choices
+  	   val l2 = l1.filterNot(e => e == m1)
+	   val m2 = l2.max
+  	   (m1,m2)
+  }
+)
+
+maxAgeFollowers.collect().foreach { t => println(t._1 + " " + t._2)}
 
 
+
+Output: (id, maxAge1, maxAge2)
+
+56 (57.0,56.0)
+48 (60.0,56.0)
+32 (61.0,60.0)
+40 (60.0,58.0)
+41 (56.0,47.0)
+57 (60.0,54.0)
+33 (63.0,54.0)
+49 (61.0,59.0)
+34 (62.0,58.0)
+50 (60.0,55.0)
+42 (58.0,57.0)
+58 (56.0,48.0)
+59 (61.0,60.0)
+35 (58.0,55.0)
+51 (55.0,53.0)
+43 (56.0,55.0)
+52 (51.0,50.0)
+36 (56.0,53.0)
+60 (56.0,46.0)
+44 (62.0,55.0)
+61 (47.0,36.0)
+53 (61.0,60.0)
+37 (57.0,53.0)
+45 (63.0,44.0)
+54 (54.0,39.0)
+46 (56.0,44.0)
+62 (62.0,55.0)
+38 (59.0,46.0)
+39 (38.0,36.0)
+47 (60.0,58.0)
+55 (55.0,54.0)
+63 (61.0,46.0)
 
 
 ===================== GraphX Question 4
+val maxBorderStates: VertexRDD[(String, Double)] = graph1.mapReduceTriplets[(String, Double)](
+  triplet => { // Map Function
+  	// pass in the id, tuple, and border len
+    Iterator((triplet.dstId, (triplet.srcAttr, triplet.attr)))
+  },
+
+  (a,b) => {
+  	 // compare by border len
+     if a._2 > b._2 a else b
+  }
+)
+
+graph1.vertices.join(maxBorderStates).collect().foreach {
+  case((id,(state,(bstate,blen)))) => println(state + " (" + id + ") " + "bordering state w/ max border: " + bstate + " (border len:" + blen + ")")
+}
 
 
+
+Output:
+Kentucky (16) bordering state w/ max border: Illinois (border len:122.4)
+Wisconsin (48) bordering state w/ max border: Iowa (border len:86.7)
+North Carolina (32) bordering state w/ max border: Georgia (border len:68.6)
+Missouri (24) bordering state w/ max border: Arkansas (border len:325.3)
+South Dakota (40) bordering state w/ max border: Iowa (border len:85.6)
+Tennessee (41) bordering state w/ max border: Alabama (border len:146.7)
+Montana (25) bordering state w/ max border: Idaho (border len:569.8)
+North Dakota (33) bordering state w/ max border: Minnesota (border len:217.1)
+Louisiana (17) bordering state w/ max border: Arkansas (border len:166.5)
+Florida (9) bordering state w/ max border: Alabama (border len:196.1)
+Wyoming (49) bordering state w/ max border: Colorado (border len:260.2)
+Ohio (34) bordering state w/ max border: Indiana (border len:178.8)
+Texas (42) bordering state w/ max border: Arkansas (border len:65.0)
+Nebraska (26) bordering state w/ max border: Colorado (border len:173.2)
+Georgia (10) bordering state w/ max border: Alabama (border len:291.3)
+Maryland (19) bordering state w/ max border: District of Columbia (border len:24.6)
+Oklahoma (35) bordering state w/ max border: Arkansas (border len:198.2)
+Nevada (27) bordering state w/ max border: Arizona (border len:181.4)
+Utah (43) bordering state w/ max border: Arizona (border len:275.8)
+California (4) bordering state w/ max border: Arizona (border len:198.4)
+New Hampshire (28) bordering state w/ max border: Massachusetts (border len:86.7)
+Oregon (36) bordering state w/ max border: California (border len:216.3)
+Massachusetts (20) bordering state w/ max border: Connecticut (border len:86.5)
+Vermont (44) bordering state w/ max border: Massachusetts (border len:40.9)
+Indiana (13) bordering state w/ max border: Illinois (border len:295.5)
+Michigan (21) bordering state w/ max border: Indiana (border len:108.4)
+New Jersey (29) bordering state w/ max border: Delaware (border len:1.4)
+Pennsylvania (37) bordering state w/ max border: Delaware (border len:22.6)
+Virginia (45) bordering state w/ max border: District of Columbia (border len:1.9)
+Colorado (5) bordering state w/ max border: Arizona (border len:0.0)
+Minnesota (22) bordering state w/ max border: Iowa (border len:262.1)
+Washington (46) bordering state w/ max border: Idaho (border len:210.3)
+New Mexico (30) bordering state w/ max border: Arizona (border len:391.0)
+Iowa (14) bordering state w/ max border: Illinois (border len:200.5)
+Rhode Island (38) bordering state w/ max border: Connecticut (border len:40.3)
+South Carolina (39) bordering state w/ max border: Georgia (border len:249.6)
+Kansas (15) bordering state w/ max border: Colorado (border len:207.7)
+West Virginia (47) bordering state w/ max border: Kentucky (border len:79.1)
+Mississippi (23) bordering state w/ max border: Alabama (border len:323.9)
+New York (31) bordering state w/ max border: Connecticut (border len:82.3)
 

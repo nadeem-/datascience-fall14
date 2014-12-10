@@ -1,3 +1,21 @@
+CREATE (1L:Vertex {state:'Alabama'})
+CREATE (2L:Vertex {state:'Arizona'})
+(9L, "Florida")
+CREATE (9L:Vertex {state:'Florida'})
+
+CREATE
+    Edge(1L, 9L, 196.1)
+    (1L)-[:EDGE {weight:['196.1']}]->(9L),
+
+CREATE (1L)-[:BORDERS {weight:196.1}]->(9L)
+
+
+
+val vertexRDD1: RDD[(Long, String)] = sc.parallelize(vertexArray1)
+val edgeRDD1: RDD[Edge[Double]] = sc.parallelize(edgeArray1)
+val graph1: Graph[String, Double] = Graph(vertexRDD1, edgeRDD1)
+
+
 val vertexArray1 = Array(
     (1L, "Alabama"), (2L, "Arizona"), (3L, "Arkansas"), (4L, "California"), (5L, "Colorado"),
     (6L, "Connecticut"), (7L, "District of Columbia"), (8L, "Delaware"), (9L, "Florida"), (10L, "Georgia"),
@@ -30,6 +48,4 @@ val edgeArray1 = Array (
     Edge(40L, 49L, 137.7), Edge(41L, 45L, 110.7), Edge(43L, 49L, 173.1), Edge(45L, 47L, 381.2)
 )
 
-val vertexRDD1: RDD[(Long, String)] = sc.parallelize(vertexArray1)
-val edgeRDD1: RDD[Edge[Double]] = sc.parallelize(edgeArray1)
-val graph1: Graph[String, Double] = Graph(vertexRDD1, edgeRDD1)
+
